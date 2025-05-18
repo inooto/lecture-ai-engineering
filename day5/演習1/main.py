@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from mlflow.models.signature import infer_signature
+import time
 
 
 # データ準備
@@ -101,6 +102,8 @@ if __name__ == "__main__":
         test_size=test_size, random_state=data_random_state
     )
 
+    # 推論時間計測
+    start_time = time.time()
     # 学習と評価
     model, accuracy = train_and_evaluate(
         X_train,
@@ -111,9 +114,14 @@ if __name__ == "__main__":
         max_depth=max_depth,
         random_state=model_random_state,
     )
+    end_time = time.time()
+
+    elapsed_time = end_time - start_time
 
     # モデル保存
     log_model(model, accuracy, params)
+
+    print(f"Inference time: {elapsed_time:.6f} seconds")
 
     model_dir = "models"
     os.makedirs(model_dir, exist_ok=True)
