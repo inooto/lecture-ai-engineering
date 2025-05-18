@@ -16,7 +16,7 @@ import time
 # データ準備
 def prepare_data(test_size=0.2, random_state=42):
     # Titanicデータセットの読み込み
-    path = "data/Titanic.csv"
+    path = "day5/演習1/data/Titanic.csv"
     data = pd.read_csv(path)
 
     # 必要な特徴量の選択と前処理
